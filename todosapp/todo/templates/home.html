@@ -1,0 +1,33 @@
+{ % extends 'base.html' % }
+
+{ % block content % }
+    { % if messages % }
+         { % for message in message % }
+             <div class="alert alert-warning alert-dismissable" role="alert">
+                 <button class="close" data-dismiss="alert">
+                     <small><sup></sup></small>
+                 </button>
+             </div>
+         { % endfor % }
+    { % endif % }
+    { % if all_tasks % }
+         <table class="table table-bordered">
+         { % for tasks in all_tasks % }
+            { % if tasks.completed %}
+                <tr class="table-secondary">
+                    <td><a href="{% url 'edit' tasks.pk %}">{{ tasks.task }}</a></td>
+                    <td><center><a href="{% url 'uncompleted' tasks.id %}">Uncompleted</a></center></td>
+                    <td><center><a href="{% url 'delete' tasks.id %}"> Delete</a></center></td>
+                 </tr>
+            { % else %}
+                <tr>
+                    <td><a href="{% url 'edit' tasks.id %}">{{ tasks.task }}</a></td>
+                    <td><center><a href="{% url 'completed' tasks.id %}"> Completed</a></center></td>
+                    <td><center><a href="{% url 'delete' tasks.id %}"> Delete</a></center></td>
+                 </tr>
+            { % endif %}
+         { % endfor % }
+         </table>
+    { % endif %}
+
+{ % end block % }
